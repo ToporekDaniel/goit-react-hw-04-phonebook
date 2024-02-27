@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { NameInput, TelInput } from './../input/inputs';
-import { Component } from 'react';
+import { useState } from 'react';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 
 const SubmitButton = styled.button`
   width: 10rem;
@@ -12,39 +13,35 @@ const SubmitButton = styled.button`
 
 const Form = styled.form``;
 
-export class ContactForm extends Component {
-  constructor(props) {
-    super(props);
+export const ContactForm = ({ onSubmit }) => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-    this.state = {
-      name: '',
-      number: '',
-    };
-  }
-
-  handleNameChange = event => {
-    this.setState({ name: event.target.value });
+  const handleNameChange = event => {
+    setName(event.target.value);
   };
 
-  handleTelChange = event => {
-    this.setState({ number: event.target.value });
+  const handleTelChange = event => {
+    setNumber(event.target.value);
   };
 
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
-    const { name, number } = this.state;
+
     const id = nanoid();
     console.log(name, number, id);
-    this.props.onSubmit({ id, name, number });
+    onSubmit({ id, name, number });
   };
 
-  render() {
-    return (
-      <Form onSubmit={this.handleSubmit}>
-        <NameInput onChange={this.handleNameChange} />
-        <TelInput onChange={this.handleTelChange} />
-        <SubmitButton type="submit">Add contact</SubmitButton>
-      </Form>
-    );
-  }
-}
+  return (
+    <Form onSubmit={handleSubmit}>
+      <NameInput onChange={handleNameChange} />
+      <TelInput onChange={handleTelChange} />
+      <SubmitButton type="submit">Add contact</SubmitButton>
+    </Form>
+  );
+};
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func,
+};

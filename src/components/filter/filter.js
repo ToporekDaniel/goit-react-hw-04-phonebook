@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const Filter = ({ onFilterChange }) => {
   const handleInputChange = event => {
     const inputValue = event.target.value.toLowerCase();
@@ -16,4 +18,8 @@ export const Filter = ({ onFilterChange }) => {
       />
     </label>
   );
+};
+
+Filter.propTypes = {
+  onFilterChange: PropTypes.func,
 };

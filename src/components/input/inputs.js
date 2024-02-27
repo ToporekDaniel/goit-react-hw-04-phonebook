@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const NameInput = ({ onChange }) => {
   return (
     <label>
@@ -28,4 +30,12 @@ export const TelInput = ({ onChange }) => {
       />
     </label>
   );
+};
+
+NameInput.propTypes = {
+  onChange: PropTypes.func,
+};
+
+TelInput.propTypes = {
+  onChange: PropTypes.func,
 };
